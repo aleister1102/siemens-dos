@@ -1,0 +1,26 @@
+import snap7
+
+active_list = [
+    "91.123.183.172"
+]
+
+try:
+    client = snap7.client.Client()
+    client.connect("91.123.183.172", 0, 0, 102)
+    connected = client.get_connected()
+    print(connected)
+
+    cpu_state = client.get_cpu_state()
+    print(cpu_state)
+
+    blocks = client.list_blocks()
+    print(blocks)
+
+    szl_list = client.read_szl_list()
+    # Convert byte array in to hex stream
+    szl_list_hex = ' '.join(format(x, '02x') for x in szl_list)
+    print(szl_list_hex)
+
+except Exception as e:
+    print(e)
+

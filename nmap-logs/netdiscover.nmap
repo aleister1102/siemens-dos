@@ -1,0 +1,117 @@
+# Nmap 7.95 scan initiated Mon Jul  1 15:18:24 2024 as: "C:\\Program Files (x86)\\Nmap\\nmap.exe" -o netdiscover.log 192.168.93.0/24
+Nmap scan report for 192.168.93.4
+Host is up (0.012s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 34s
+All 1000 scanned ports on 192.168.93.4 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 1C:61:B4:45:B8:9C (TP-Link Limited)
+
+Nmap scan report for 192.168.93.51
+Host is up (0.013s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 34s
+Not shown: 999 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+5432/tcp closed postgresql
+MAC Address: 00:E0:4C:42:1E:A5 (Realtek Semiconductor)
+
+Nmap scan report for 192.168.93.70
+Host is up (0.0021s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 14s
+Not shown: 998 closed tcp ports (reset)
+PORT    STATE SERVICE
+22/tcp  open  ssh
+443/tcp open  https
+MAC Address: 00:90:0B:7D:F2:2C (Lanner Electronics)
+
+Nmap scan report for 192.168.93.75
+Host is up (0.0060s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 34s
+All 1000 scanned ports on 192.168.93.75 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 30:BE:3B:EA:FD:14 (Mitsubishi Electric)
+
+Nmap scan report for 192.168.93.80
+Host is up (0.0049s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 33s
+All 1000 scanned ports on 192.168.93.80 are in ignored states.
+Not shown: 1000 closed tcp ports (reset)
+MAC Address: 8C:F3:19:9F:94:1A (Siemens Industrial Automation Products, Chengdu)
+
+Nmap scan report for 192.168.93.81
+Host is up (0.0015s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 15s
+All 1000 scanned ports on 192.168.93.81 are in ignored states.
+Not shown: 1000 closed tcp ports (reset)
+MAC Address: CC:96:E5:88:89:E1 (Dell)
+
+Nmap scan report for 192.168.93.85
+Host is up (0.0033s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 16s
+Not shown: 996 closed tcp ports (reset)
+PORT     STATE SERVICE
+21/tcp   open  ftp
+80/tcp   open  http
+443/tcp  open  https
+1105/tcp open  ftranhc
+MAC Address: 00:80:F4:36:7B:AE (Telemecanique Electrique)
+
+Nmap scan report for 192.168.93.90
+Host is up (0.023s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 34s
+Not shown: 999 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+2222/tcp closed EtherNetIP-1
+MAC Address: BC:F4:99:02:77:94 (Rockwell Automation)
+
+Nmap scan report for 192.168.93.95
+Host is up (0.0028s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 32s
+Not shown: 999 closed tcp ports (reset)
+PORT   STATE    SERVICE
+80/tcp filtered http
+MAC Address: 10:4B:46:65:02:05 (Mitsubishi Electric)
+
+Nmap scan report for 192.168.93.100
+Host is up (0.013s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 34s
+All 1000 scanned ports on 192.168.93.100 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 58:52:8A:8F:7E:AB (Mitsubishi Electric)
+
+Nmap scan report for 192.168.93.130
+Host is up (0.0026s latency).
+Scanned at 2024-07-01 15:18:26 SE Asia Standard Time for 32s
+Not shown: 990 closed tcp ports (reset)
+PORT     STATE    SERVICE
+135/tcp  filtered msrpc
+139/tcp  filtered netbios-ssn
+445/tcp  filtered microsoft-ds
+3389/tcp filtered ms-wbt-server
+4002/tcp filtered mlchat-proxy
+4446/tcp filtered n1-fwp
+5800/tcp filtered vnc-http
+5900/tcp filtered vnc
+8082/tcp filtered blackice-alerts
+8888/tcp filtered sun-answerbook
+MAC Address: 98:EE:CB:DE:9A:7C (Wistron Infocomm (Zhongshan))
+
+Packet capture filter (device lo0): dst host 192.168.93.222 and (icmp or icmp6 or ((tcp or udp or sctp) and (src host 192.168.93.222)))
+Nmap scan report for 192.168.93.222
+Host is up (0.00072s latency).
+Scanned at 2024-07-01 15:19:00 SE Asia Standard Time for 0s
+Not shown: 990 closed tcp ports (reset)
+PORT      STATE SERVICE
+32/tcp    open  unknown
+81/tcp    open  hosts2-ns
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+1001/tcp  open  webpush
+3389/tcp  open  ms-wbt-server
+4002/tcp  open  mlchat-proxy
+8008/tcp  open  http
+16992/tcp open  amt-soap-http
+
+Read from C:\Program Files (x86)\Nmap: nmap-mac-prefixes nmap-protocols nmap-services.
+# Nmap done at Mon Jul  1 15:19:00 2024 -- 256 IP addresses (12 hosts up) scanned in 36.64 seconds
+# nmap -o netdiscover.log 192.168.93.0/24
