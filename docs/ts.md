@@ -1,23 +1,26 @@
-# Transport Service Access Point (TSAP)
+# ISO Transport Service (ISO 8072, X.214)
 
 ## TL;DR
 
-TSAP là địa chỉ của tài nguyên (chẳng hạn PLC) tại vị trí nào đó chẳng hạn như tại một rack/slot cụ thể. Tổng quát hơn, TSAP đóng vai trò như là một điểm truy cập đầu cuối (access endpoint) giúp giao tiếp với tầng vận chuyển (transport layer) bằng cách chuyển giao dữ liệu đến đúng tiến trình ở trên host. Như vậy, TSAP giống như là sự kết hợp giữa địa chỉ IP và cổng TCP/UDP trong mô TCP/IP.
+ISO transport service (TS) giúp định nghĩa các dịch vụ được cung cấp bởi các giao thức ở tầng vận chuyển của ISO (ISO transport layer protocol) chẳng hạn như TP0, TP1, TP2, ... trong bộ giao thức của ISO.
 
-> The TSAP (Transport Service Access Point) functions as the address of the resource (a Level 4 address
-in the ISO 7 layer reference model).
+Transport service access point (TSAP) là một giao diện giữa các giao thức ở tầng vận chuyển của ISO với các ứng dụng. Nói cách khác, TSAP cung cấp cho các ứng dụng cách thức truy cập đến các dịch vụ của TCP/IP.
 
-> In SIMATIC S7, the TSAP is made up of two parts: A "connection resource" ID and a specified location
-(rack/slot in S7 stations) or an internal system ID (PC stations).
+Tổng quát hơn, TSAP đóng vai trò như là định danh cho điểm truy cập đầu cuối (endpoint identifier). Địa chỉ của TSAP interface là địa chỉ của tài nguyên tại một vị trí cụ thể nào đó. Có thể nói, địa chỉ TSAP giống với port của giao thức TCP.
 
+Bằng cách sử dụng địa chỉ TSAP, các gói tin có thể được điều hướng đến đúng tiến trình ở trong host.
+
+> The TSAP (Transport Service Access Point) functions as the address of the resource (a Level 4 address in the ISO 7 layer reference model).
+
+> In SIMATIC S7, the TSAP is made up of two parts: A "connection resource" ID and a specified location (rack/slot in S7 stations) or an internal system ID (PC stations).
+
+Ref: https://support.industry.siemens.com/forum/vn/en/postattachments/download/?attachmentId=25458
 
 ## Introduction
 
-Thuật ngữ "service" chỉ đến khả năng trừu tượng được cung cấp bởi một tầng của mô hình tham chiếu OSI cho tầng ở trên nó.
+![alt text](ts1.png)
 
-![alt text](tsap1.png)
-
-Transport connection (TC) là một kết nối được thiết lập bởi tầng vận chuyển, hay còn gọi là bên cung cấp dịch vụ vận chuyển - transport service (TS) provider,  với 2 người dùng dịch vụ vận chuyển (TS user) ở tầng trên để vận chuyển dữ liệu.
+Transport connection (TC) là một kết nối được thiết lập bởi tầng vận chuyển, hay còn gọi là bên cung cấp dịch vụ vận chuyển - transport service provider, với 2 người dùng dịch vụ vận chuyển (TS user) ở tầng trên để vận chuyển dữ liệu.
 
 Có hai loại dịch vụ vận chuyển:
 - Cần thiết lập kết nối
@@ -25,24 +28,26 @@ Có hai loại dịch vụ vận chuyển:
 
 ## Connection-mode service
 
-Dữ liệu được truyền giữa một TS use và một TS provider bởi các primitive. Các primitive này là dạng biểu diễn trừu tượng của các loại thao tác trong một TC giữa 2 TSAP và có thể chứa các tham số.
+Dữ liệu được truyền giữa một TS user và một TS provider bởi các primitive. Các primitive này là dạng biểu diễn trừu tượng của các loại thao tác trong một TC giữa 2 TSAP và có thể chứa các tham số.
 
 Ngoài ra, một TC sẽ bao gồm một cặp hàng đợi kết nối hai TSAP, mỗi hàng đợi tương ứng với một chiều vận chuyển dữ liệu.
 
-![alt text](tsap2.png)
+![alt text](ts2.png)
 
 Các đối tượng được thêm vào và loại bỏ khỏi hàng đợi dựa trên các thao tác ở 2 TSAP.
 
 ### Primitives
 
-Các loại đối tượng có thể được thêm vào hàng đợi bởi một TS user:
-- Connect
-- Octets of normal data
-- Indications of end-of-TSDU
-- Expedited TSDUs
-- Disconnect
+Mỗi primitive sẽ tương ứng với một loại đối tượng cụ thể.
 
-Loại object duy nhất mà có thể được thêm vào một hàng đợi bởi TS provider là disconnect.
+Các loại đối tượng có thể được thêm vào hàng đợi bởi một TS user:
+- Kết nối (connection)
+- Các octer chứa dữ liệu thông thường
+- Dấu hiệu cho biết kết thúc của TSDU (Transport Service Data Unit)
+- Các TSDU ưu tiên
+- Ngắt kết nối (disconnect)
+
+Loại đối tượng duy nhất mà có thể được thêm vào một hàng đợi bởi TS provider là ngắt kết nối.
 
 Danh sách các primitive:
 
@@ -72,13 +77,15 @@ Danh sách các primitive:
 +-------------------+----------------------+-----------------------+----------------------------------------------------------+
 ```
 
-Một TS user A mà khởi tạo việc thiết lập kết nối bằng cách thêm một connect object (đại diện cho một T-CONNECT request primitive) vào hàng đợi từ A đến B, không được phép thêm bất kỳ đối tượng nào khác ngoài một disconnect object vào hàng đợi này cho đến sau khi connect object đại diện cho T-CONNECT confirm đã được loại bỏ. Trong hàng đợi từ TS user B đến TS user A, các đối tượng khác ngoài một disconnect object có thể được thêm vào bởi TS user B chỉ sau khi TS user B đã thêm vào một connect object tương ứng với một T-CONNECT response. Việc thêm vào một disconnect object đồng nghĩa với việc khởi tạo quy trình giải phóng.
+Một TS user A mà khởi tạo việc thiết lập kết nối bằng cách thêm một đối tượng kết nối (đại diện cho một T-CONNECT request primitive) vào hàng đợi từ A đến B, không được phép thêm bất kỳ đối tượng nào khác ngoài một đối tượng ngắt kết nối vào hàng đợi này cho đến sau khi đối tượng kết nối đại diện cho T-CONNECT confirm đã được loại bỏ. 
+
+Trong hàng đợi từ TS user B đến TS user A, các đối tượng khác ngoài một đối tượng ngắt kết nối có thể được thêm vào bởi TS user B chỉ sau khi TS user B đã thêm vào một đối tượng kết nối tương ứng với một T-CONNECT response. Việc thêm vào một đối tượng ngắt kết nối đồng nghĩa với việc khởi tạo quy trình giải phóng.
 
 ### Precedence of Objects in the Queue
 
-TS provider có thể chỉnh sửa các cặp object liền kề trong hàng đợi để sắp xếp lại và xóa dựa trên các điều kiện cụ thể:
-- (g) Sắp xếp lại: Thứ tự của hai object có thể bị đảo ngược nếu **object thứ hai ưu tiên hơn object thứ nhất**. Expedited TSDUs (Transport Service Data Units) ưu tiên hơn các octet dữ liệu bình thường và end-of-TSDU indications.
-- (h) Xóa: **disconnect objects ưu tiên hơn tất cả các object khác**. Bất kỳ object nào cũng có thể bị xóa nếu theo sau bởi một disconnect object. Nếu một connect object liên quan đến một T-CONNECT request bị xóa, disconnect object cũng bị xóa. Tuy nhiên, nếu một connect object liên quan đến một T-CONNECT response bị xóa, disconnect object không bị xóa.
+TS provider có thể chỉnh sửa các cặp đối tượng liền kề trong hàng đợi để sắp xếp lại và xóa dựa trên các điều kiện cụ thể:
+- (g) Sắp xếp lại: Thứ tự của hai đối tượng có thể bị đảo ngược nếu **đối tượng thứ hai ưu tiên hơn đối tượng thứ nhất**. Expedited TSDUs (Transport Service Data Units) ưu tiên hơn các octet dữ liệu bình thường và end-of-TSDU indications.
+- (h) Xóa: **đối tượng ngắt kết nối ưu tiên hơn tất cả các đối tượng khác**. Bất kỳ đối tượng nào cũng có thể bị xóa nếu theo sau bởi một đối tượng ngắt kết nối. Nếu một đối tượng kết nối liên quan đến một T-CONNECT request bị xóa, đối tượng ngắt kết nối cũng bị xóa. Tuy nhiên, nếu một đối tượng kết nối liên quan đến một T-CONNECT response bị xóa, đối tượng ngắt kết nối không bị xóa.
 
 Bảng ưu tiên:
 
@@ -113,10 +120,8 @@ Với:
 
 Các gói tin được truyền từ TSAP nguồn đến TSAP đích **mà không cần thiết lập trước kết nối hoặc giải phóng kết nối sau đó**. Chế độ này có thể được mô hình hóa ở dạng trừu tượng như một **liên kết cố định** giữa hai TSAP.
 
-![alt text](tsap3.png)
+![alt text](ts3.png)
 
 Việc gửi gói tin không cần thiết lập kết nối chỉ có thể diễn ra khi các TS user tồn tại và được biết đến bởi TS provider.
 
-## References
-- https://support.industry.siemens.com/forum/vn/en/postattachments/download/?attachmentId=25458
-- https://www.itu.int/rec/T-REC-X.214/en
+Ref: https://www.itu.int/rec/T-REC-X.214/en
