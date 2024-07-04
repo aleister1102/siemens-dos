@@ -34,11 +34,11 @@ Các chức năng khác:
 Các chức năng ở trong TP được chia thành nhiều lớp (class) và tùy chọn (option). Một lớp sẽ bao gồm một tập các chức năng. Các tùy chọn giúp chỉ định những chức năng trong một lớp mà có thể được hoặc không được sử dụng.
 
 Danh sách các lớp:
-- (a)  Class 0:  Simple Class;
-- (b)  Class 1:  Basic Error recovery Class;
-- (c)  Class 2:  Multiplexing Class;
-- (d)  Class 3:  Error Recovery and Multiplexing Class;
-- (e)  Class 4:  Error Detection and Recovery Class.
+- (a) Class 0: Simple Class.
+- (b) Class 1: Basic Error recovery Class.
+- (c) Class 2: Multiplexing Class.
+- (d) Class 3: Error Recovery and Multiplexing Class.
+- (e) Class 4: Error Detection and Recovery Class.
 
 Việc quyết định xem class và option nào được sử dụng sẽ được thỏa thuận trong quá trình thiết lập kết nối.
 
