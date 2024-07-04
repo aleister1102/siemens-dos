@@ -55,8 +55,6 @@ Với:
 - vrsn (8 bit): luôn là 3 cho phiên bản của giao thức này.
 - packet length (16 bit) (tối thiểu=7, tối đa=65535): chứa độ dài của toàn bộ gói tin, bao gồm cả tiêu đề gói. Điều này cho phép kích thước TPDU tối đa là 65531 byte.
 
-To support expedited data, a non-standard TPDU, for expedited data is permitted.  The format used for the ED TPDU is nearly identical to the format for the normal data, DT, TPDU.  The only difference is that the value used for the TPDU's code is ED, not DT:
-
 Định dạng được sử dụng cho ED TPDU (expedited TPDU, các gói tin ưu tiên) gần giống với định dạng cho dữ liệu thông thường. Sự khác biệt duy nhất là giá trị được sử dụng cho `code` TPDU là ED, không phải DT:
 
 ```txt

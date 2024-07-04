@@ -1,8 +1,8 @@
-# ISO Transport Service (ISO 8072, X.214)
+# ISO Transport Service Definition (ISO 8072, X.214)
 
 ## TL;DR
 
-ISO transport service (TS) giúp định nghĩa các dịch vụ được cung cấp bởi các giao thức ở tầng vận chuyển của ISO (ISO transport layer protocol) chẳng hạn như TP0, TP1, TP2, ... trong bộ giao thức của ISO.
+ISO transport service (TS) definition giúp định nghĩa các dịch vụ được cung cấp bởi các giao thức ở tầng vận chuyển của ISO (ISO transport layer protocol) chẳng hạn như TP0, TP1, TP2, ... trong bộ giao thức của ISO.
 
 Transport service access point (TSAP) là một giao diện giữa các giao thức ở tầng vận chuyển của ISO với các ứng dụng. Nói cách khác, TSAP cung cấp cho các ứng dụng cách thức truy cập đến các dịch vụ của TCP/IP.
 
@@ -18,7 +18,7 @@ Ref: https://support.industry.siemens.com/forum/vn/en/postattachments/download/?
 
 ## Introduction
 
-![alt text](ts1.png)
+![alt text](tsap1.png)
 
 Transport connection (TC) là một kết nối được thiết lập bởi tầng vận chuyển, hay còn gọi là bên cung cấp dịch vụ vận chuyển - transport service provider, với 2 người dùng dịch vụ vận chuyển (TS user) ở tầng trên để vận chuyển dữ liệu.
 
@@ -32,7 +32,7 @@ Dữ liệu được truyền giữa một TS user và một TS provider bởi c
 
 Ngoài ra, một TC sẽ bao gồm một cặp hàng đợi kết nối hai TSAP, mỗi hàng đợi tương ứng với một chiều vận chuyển dữ liệu.
 
-![alt text](ts2.png)
+![alt text](tsap2.png)
 
 Các đối tượng được thêm vào và loại bỏ khỏi hàng đợi dựa trên các thao tác ở 2 TSAP.
 
@@ -52,29 +52,31 @@ Loại đối tượng duy nhất mà có thể được thêm vào một hàng 
 Danh sách các primitive:
 
 ```txt
-+-------------------+----------------------+-----------------------+----------------------------------------------------------+
-|      Phase        |        Service       |        Primitive      |                       Parameters                         |
-+-------------------+----------------------+-----------------------+----------------------------------------------------------+
-| TC establishment  | TC establishment     | T-CONNECT request     | (Called address, calling address, expedited data option, |
-|                   |                      |                       | quality of service, TS user-data)                        |
-|                   |                      | T-CONNECT indication  | (Called address, calling address, expedited data option, |
-|                   |                      |                       | quality of service, TS user-data)                        |
-|                   |                      | T-CONNECT response    | (Quality of service, responding address, expedited data  |
-|                   |                      |                       | option, TS user-data)                                    |
-|                   |                      | T-CONNECT confirm     | (Quality of service, responding address, expedited data  |
-|                   |                      |                       | option, TS user-data)                                    |
-+-------------------+----------------------+-----------------------+----------------------------------------------------------+
-| Data transfer     | Normal data transfer | T-DATA request        | (TS user-data)                                           |
-|                   |                      | T-DATA indication     | (TS user-data)                                           |
-|                   | Expedited data       | T-EXPEDITED-DATA      | (TS user-data)                                           |
-|                   | transfer             | request               |                                                          |
-|                   |                      | T-EXPEDITED-DATA      | (TS user-data)                                           |
-|                   |                      | indication            |                                                          |
-+-------------------+----------------------+-----------------------+----------------------------------------------------------+
-| TC release        | TC release           | T-DISCONNECT request  | (TS user-data)                                           |
-|                   |                      | T-DISCONNECT          | (Disconnect reason, TS user-data)                        |
-|                   |                      | indication            |                                                          |
-+-------------------+----------------------+-----------------------+----------------------------------------------------------+
++-------------------------------------------------------------+
+|           Primitive            |        Parameter           |
+|--------------------------------|----------------------------|
+|T-CONNECT         request       |   Called Address,          |
+|                  indication    |   Calling Address,         |
+|                                |   Expedited Data option,   |
+|                                |   Quality of Service,      |
+|                                |   TS User-Data.            |
+|--------------------------------|----------------------------|
+|T-CONNECT         response      |   Responding Address,      |
+|                  confirm       |   Quality of Service,      |
+|                                |   Expedited Data option,   |
+|                                |   TS User-Data.            |
+|--------------------------------|----------------------------|
+|T-DATA            request       |   TS User-Data.            |
+|                  indication    |                            |
+|--------------------------------|----------------------------|
+|T-EXPEDITED DATA  request       |   TS User-Data.            |
+|                  indication    |                            |
+|--------------------------------|----------------------------|
+|T-DISCONNECT      request       |   TS User-Data.            |
+|--------------------------------|----------------------------|
+|T-DISCONNECT      indication    |   Disconnect reason,       |
+|                                |   TS User-Data.            |
++--------------------------------|----------------------------+
 ```
 
 Một TS user A mà khởi tạo việc thiết lập kết nối bằng cách thêm một đối tượng kết nối (đại diện cho một T-CONNECT request primitive) vào hàng đợi từ A đến B, không được phép thêm bất kỳ đối tượng nào khác ngoài một đối tượng ngắt kết nối vào hàng đợi này cho đến sau khi đối tượng kết nối đại diện cho T-CONNECT confirm đã được loại bỏ. 
@@ -120,8 +122,10 @@ Với:
 
 Các gói tin được truyền từ TSAP nguồn đến TSAP đích **mà không cần thiết lập trước kết nối hoặc giải phóng kết nối sau đó**. Chế độ này có thể được mô hình hóa ở dạng trừu tượng như một **liên kết cố định** giữa hai TSAP.
 
-![alt text](ts3.png)
+![alt text](tsap3.png)
 
 Việc gửi gói tin không cần thiết lập kết nối chỉ có thể diễn ra khi các TS user tồn tại và được biết đến bởi TS provider.
 
-Ref: https://www.itu.int/rec/T-REC-X.214/en
+Ref: 
+- https://www.itu.int/rec/T-REC-X.214/en
+- https://datatracker.ietf.org/doc/html/rfc905
