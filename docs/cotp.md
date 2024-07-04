@@ -1,4 +1,4 @@
-# ISO Transport Protocol (ISO 8073, RFC 905, X.224)
+# ISO Transport Protocol - Connection Oriented Transport Protocol (ISO 8073, RFC 905, X.224)
 
 ## TL;DR
 
