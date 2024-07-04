@@ -1,10 +1,10 @@
 import snap7
 
-active_list = ["91.123.183.172", "119.243.226.74"]
+active_list = ["91.123.183.172", "119.243.226.74", "183.77.153.19", "183.77.153.42"]
 
 try:
     client = snap7.client.Client()
-    client.connect("119.243.226.74", 0, 0, 102)
+    client.connect("88.28.207.232", 0, 0, 102)
     connected = client.get_connected()
     print(connected)
 

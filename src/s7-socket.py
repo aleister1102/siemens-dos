@@ -4,6 +4,7 @@ from scapy.all import *
 from scapy.layers.inet import IP, TCP
 
 target = "192.168.93.80"
+target = "183.77.153.42"
 port = 102
 
 
