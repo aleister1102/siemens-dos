@@ -1,6 +1,17 @@
 # Transport Service Access Point (TSAP)
 
-## Intro
+## TL;DR
+
+TSAP là địa chỉ của tài nguyên (chẳng hạn PLC) tại vị trí nào đó chẳng hạn như tại một rack/slot cụ thể. Tổng quát hơn, TSAP đóng vai trò như là một điểm truy cập đầu cuối (access endpoint) giúp giao tiếp với tầng vận chuyển (transport layer) bằng cách chuyển giao dữ liệu đến đúng tiến trình ở trên host. Như vậy, TSAP giống như là sự kết hợp giữa địa chỉ IP và cổng TCP/UDP trong mô TCP/IP.
+
+> The TSAP (Transport Service Access Point) functions as the address of the resource (a Level 4 address
+in the ISO 7 layer reference model).
+
+> In SIMATIC S7, the TSAP is made up of two parts: A "connection resource" ID and a specified location
+(rack/slot in S7 stations) or an internal system ID (PC stations).
+
+
+## Introduction
 
 Thuật ngữ "service" chỉ đến khả năng trừu tượng được cung cấp bởi một tầng của mô hình tham chiếu OSI cho tầng ở trên nó.
 
@@ -105,3 +116,7 @@ Các gói tin được truyền từ TSAP nguồn đến TSAP đích **mà khôn
 ![alt text](tsap3.png)
 
 Việc gửi gói tin không cần thiết lập kết nối chỉ có thể diễn ra khi các TS user tồn tại và được biết đến bởi TS provider.
+
+## References
+- https://support.industry.siemens.com/forum/vn/en/postattachments/download/?attachmentId=25458
+- https://www.itu.int/rec/T-REC-X.214/en
