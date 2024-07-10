@@ -1,0 +1,13 @@
+# Nmap 7.95 scan initiated Fri Jul  5 09:06:13 2024 as: nmap -p 102 --script s7-info -oN siemens.nmap -Pn 192.168.93.80
+Nmap scan report for 192.168.93.80
+Host is up (0.0075s latency).
+
+PORT    STATE SERVICE
+102/tcp open  iso-tsap
+| s7-info: 
+|   Module: 6ES7 211-1AE40-0XB0 
+|   Basic Hardware: 6ES7 211-1AE40-0XB0 
+|_  Version: 4.5.1
+Service Info: Device: specialized
+
+# Nmap done at Fri Jul  5 09:06:56 2024 -- 1 IP address (1 host up) scanned in 43.21 seconds
